@@ -15,7 +15,7 @@
     "@nuxt/eslint": "1.2.0",
     "@nuxt/ui": "3.0.0-alpha.13",
     "eslint": "^9.0.0",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.16.0",
     "vue": "latest",
     "vue-router": "latest"
   },
@@ -26,5 +26,8 @@
       "@tailwindcss/vite": "4.0.7"
     }
   },
-  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
+  "packageManager": "pnpm@10.6.2",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
 }
