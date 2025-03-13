@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nuxt/eslint": "1.2.0",
-    "@nuxt/ui": "3.0.0-alpha.13",
+    "@nuxt/ui": "3.0.0",
     "eslint": "^9.0.0",
     "nuxt": "^3.16.0",
     "vue": "latest",
