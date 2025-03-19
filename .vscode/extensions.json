@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "Vue.volar",
+    "prisma.prisma",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint"
+  ],
+  "unwantedRecommendations": [
+    "octref.vetur"
+  ]
+}
