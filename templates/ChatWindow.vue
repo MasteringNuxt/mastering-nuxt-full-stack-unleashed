@@ -1,0 +1,140 @@
+<template>
+  <div ref="scrollContainer" class="scroll-container">
+    <UContainer class="chat-container">
+      <!-- ... -->
+    </UContainer>
+  </div>
+</template>
+
+<style scoped>
+/* ===== Layout & Container Styles ===== */
+.scroll-container {
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.chat-container {
+  max-width: 800px;
+  height: 100%;
+}
+
+/* ===== Header Styles ===== */
+.chat-header {
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+/* ===== Messages Container ===== */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  overflow-y: auto;
+  padding-bottom: 8rem;
+}
+
+/* ===== Message Styles ===== */
+.message {
+  padding: 1rem;
+  border-radius: var(--ui-radius);
+  transition: all 0.2s;
+}
+
+.message-user {
+  background-color: var(--ui-bg-muted);
+  border: 1px solid var(--ui-border);
+  width: 70%;
+  align-self: flex-end;
+}
+
+.message-ai {
+  width: 100%;
+  padding: 1rem 0;
+  border: none;
+  background: none;
+}
+
+.message-content {
+  color: var(--ui-text);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* ===== Input Form Styles ===== */
+.message-form-container {
+  position: fixed;
+  bottom: 1.5rem;
+  max-width: 800px;
+  width: calc(
+    100% - 3rem
+  ); /* Account for container padding */
+  z-index: 10;
+}
+
+.scroll-to-bottom-button-container {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scroll-to-bottom-button-container :deep(button) {
+  pointer-events: auto;
+}
+
+/* ===== Empty State Styles ===== */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 100%;
+}
+
+.empty-state-card {
+  background-color: var(--ui-bg-elevated);
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.empty-state-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ui-text-muted);
+  text-align: center;
+}
+
+.empty-state-message {
+  font-size: 1rem;
+  color: var(--ui-text-muted);
+}
+
+/* ===== Utility Styles ===== */
+/* Hide scrollbar across browsers */
+.message-input {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.message-input::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+</style>
