@@ -7,11 +7,15 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "nuxt": "^4.0.1",
     "@nuxt/ui": "3.0.0",
+    "@nuxt/eslint": "1.2.0",
+    "eslint": "^9.0.0",
     "vue": "latest",
     "vue-router": "latest"
   },
