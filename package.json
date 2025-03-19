@@ -9,15 +9,19 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky"
   },
   "dependencies": {
-    "@nuxt/ui": "3.0.0",
-    "nuxt": "^3.16.1",
     "@nuxt/eslint": "1.2.0",
+    "@nuxt/ui": "3.0.0",
     "eslint": "^9.0.0",
+    "nuxt": "^3.16.1",
     "vue": "latest",
     "vue-router": "latest"
   },
-  "packageManager": "pnpm@10.6.5"
+  "packageManager": "pnpm@10.6.5",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
 }
