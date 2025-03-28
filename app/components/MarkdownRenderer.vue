@@ -1,3 +1,11 @@
+<script setup lang="ts">
+defineProps<{ content: string }>()
+</script>
+
+<template>
+  <MDC :value="content" class="markdown-content" />
+</template>
+
 <style>
 .markdown-content {
   font-size: 1rem;
