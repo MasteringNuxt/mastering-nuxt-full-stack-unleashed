@@ -46,7 +46,9 @@ watch(() => props.messages, pinToBottom, { deep: true })
             }"
           >
             <div class="message-content">
-              {{ message.content }}
+              <MarkdownRenderer
+                :content="message.content"
+              />
             </div>
           </div>
 
