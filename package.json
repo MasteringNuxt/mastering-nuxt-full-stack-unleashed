@@ -25,6 +25,7 @@
   },
   "packageManager": "pnpm@10.6.5",
   "devDependencies": {
+    "@nuxtjs/mdc": "^0.16.1",
     "husky": "^9.1.7"
   }
 }
