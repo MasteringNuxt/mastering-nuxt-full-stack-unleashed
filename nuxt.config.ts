@@ -13,4 +13,17 @@ export default defineNuxtConfig({
   runtimeConfig: {
     openaiApiKey: '',
   },
+
+  mdc: {
+    highlight: {
+      theme: 'material-theme-palenight',
+      langs: [
+        'html',
+        'markdown',
+        'vue',
+        'typescript',
+        'javascript',
+      ],
+    },
+  },
 })
