@@ -17,6 +17,9 @@
     "@nuxt/ui": "3.0.0",
     "@nuxt/eslint": "1.2.0",
     "eslint": "^9.0.0",
+    "@ai-sdk/openai": "1.2.0",
+    "ai": "4.1.51",
+    "ollama-ai-provider": "1.2.0",
     "vue": "latest",
     "vue-router": "latest"
   },
