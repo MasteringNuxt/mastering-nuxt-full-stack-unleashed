@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const route = useRoute()
+console.log(route.params)
 const { chat, messages, sendMessage } = useChat()
 
 const typing = ref(false)
