@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+
+const { createChat } = useChats()
+function handleCreateChat() {
+  createChat()
+}
 </script>
 
 <template>
@@ -10,7 +15,10 @@ const appConfig = useAppConfig()
         color="primary"
         variant="soft"
       />
-      <UButton icon="i-lucide-plus" to="/chats/1">
+      <UButton
+        icon="i-lucide-plus"
+        @click="handleCreateChat"
+      >
         New Chat
       </UButton>
     </div>
