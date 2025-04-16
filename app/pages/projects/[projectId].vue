@@ -114,6 +114,8 @@ async function handleNewChat() {
         New Chat in Project
       </UButton>
     </div>
+
+    <NuxtPage />
   </div>
 </template>
 
