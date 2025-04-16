@@ -21,14 +21,15 @@ const { chats } = useChats()
           </h2>
         </div>
         <div class="space-y-1">
-          <a
+          <NuxtLink
             v-for="chat in chats"
             :key="chat.id"
-            :href="`/chats/${chat.id}`"
+            :to="`/chats/${chat.id}`"
             class="block text-(--ui-text-muted) px-3 py-1 text-sm rounded-md transition-colors duration-200 ease-in-out hover:bg-[var(--ui-bg-elevated)]"
+            active-class="text-(--ui-text-primary) bg-(--ui-bg-elevated)"
           >
             {{ chat.title || 'Untitled Chat' }}
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </div>
