@@ -1,4 +1,3 @@
-import type { Project } from '../types'
 import useProjects from './useProjects'
 
 export default function useProject(projectId: string) {
