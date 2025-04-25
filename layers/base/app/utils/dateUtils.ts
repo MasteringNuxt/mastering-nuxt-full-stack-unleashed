@@ -1,4 +1,4 @@
-import type { Chat } from '../types'
+import type { Chat } from '../../../../app/types'
 
 export function isWithinDays(
   date: Date,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
-import type { Project, Chat } from '../types'
+import type { Project, Chat } from '../../../../app/types'
 
 defineProps<{
   isOpen: boolean
