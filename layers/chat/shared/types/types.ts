@@ -2,6 +2,8 @@ export interface ChatMessage {
   id: string
   role: 'user' | 'assistant'
   content: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface Chat {
@@ -16,4 +18,10 @@ export interface Chat {
 export interface Project {
   id: string
   name: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface ChatWithProject extends Chat {
+  project: Project | null
 }
