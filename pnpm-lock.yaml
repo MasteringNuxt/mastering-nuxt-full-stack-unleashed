@@ -29,6 +29,9 @@ importers:
       ollama-ai-provider:
         specifier: 1.2.0
         version: 1.2.0(zod@3.25.76)
+      uuid:
+        specifier: ^11.1.0
+        version: 11.1.0
       vue:
         specifier: latest
         version: 3.5.18(typescript@5.9.2)
