@@ -1,21 +1,32 @@
 export default function useProjects() {
-  const projects = useState<Project[]>('projects', () => [
-    MOCK_PROJECT,
-  ])
+  const projects = useState<Project[]>('projects', () => [])
 
-  function createProject() {
-    const id = (projects.value.length + 1).toString()
-    const project = {
-      id,
-      name: 'New Project',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+  const { data, execute, status } = useFetch<Project[]>(
+    '/api/projects',
+    {
+      default: () => [],
+      immediate: false,
     }
+  )
+
+  async function fetchProjects() {
+    if (status.value !== 'idle') return
+    await execute()
+    projects.value = data.value
+  }
+
+  async function createProject() {
+    const project = await $fetch<Project>('/api/projects', {
+      method: 'POST',
+      body: {
+        name: 'New Project',
+      },
+    })
 
     projects.value.push(project)
 
     return project
   }
 
-  return { projects, createProject }
+  return { projects, createProject, fetchProjects }
 }
