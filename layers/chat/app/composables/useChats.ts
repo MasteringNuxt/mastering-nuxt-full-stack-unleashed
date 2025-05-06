@@ -33,7 +33,7 @@ export default function useChats() {
   async function createChatAndNavigate(
     options: { projectId?: string } = {}
   ) {
-    const chat = createChat(options)
+    const chat = await createChat(options)
 
     if (chat.projectId) {
       await navigateTo(
