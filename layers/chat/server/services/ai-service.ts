@@ -41,7 +41,7 @@ export async function generateChatTitle(
       {
         role: 'system',
         content:
-          'Summarize the message in 3 or less short words.',
+          'You are a helpful assistant that generates concise, descriptive titles for chat conversations. Generate a title that captures the essence of the first message in 3 short words or less.',
       },
       {
         role: 'user',
