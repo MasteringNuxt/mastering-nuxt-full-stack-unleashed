@@ -3,14 +3,10 @@ export default function useChats() {
     data: chats,
     execute,
     status,
-  } = useAsyncData<Chat[]>(
-    'chats',
-    () => $fetch<Chat[]>('/api/chats'),
-    {
-      immediate: false,
-      default: () => [],
-    }
-  )
+  } = useFetch<Chat[]>('/api/chats', {
+    immediate: false,
+    default: () => [],
+  })
 
   async function fetchChats() {
     if (status.value !== 'idle') return
