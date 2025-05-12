@@ -92,7 +92,7 @@ watch(() => props.messages, pinToBottom, { deep: true })
 
 .chat-container {
   max-width: 800px;
-  height: 100%;
+  height: calc(100% - 4rem);
 }
 
 /* ===== Header Styles ===== */
