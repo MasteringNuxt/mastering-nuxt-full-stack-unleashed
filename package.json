@@ -24,7 +24,7 @@
     "vue": "latest",
     "vue-router": "latest"
   },
-  "packageManager": "pnpm@10.6.5",
+  "packageManager": "pnpm@10.11.0",
   "devDependencies": {
     "@nuxtjs/mdc": "^0.16.1",
     "husky": "^9.1.7"
