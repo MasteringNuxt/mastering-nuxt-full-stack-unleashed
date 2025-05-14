@@ -10,4 +10,13 @@ export default defineNuxtConfig({
       include: ['debug'],
     },
   },
+
+  nitro: {
+    storage: {
+      db: {
+        driver: 'fs',
+        base: './.data',
+      },
+    },
+  },
 })
