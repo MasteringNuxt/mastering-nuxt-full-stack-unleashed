@@ -1,24 +1,51 @@
 import { v4 as uuidv4 } from 'uuid'
 import { getProjectById } from './projectRepository'
 
-const chats: Chat[] = [MOCK_CHAT]
+const storage = useStorage<Chat[]>('db')
+const chatsKey = 'chats:all'
+
+async function getChats(): Promise<Chat[]> {
+  let chats = await storage.getItem(chatsKey)
+
+  // Initialize with mock data
+  if (chats === null) {
+    chats = [MOCK_CHAT]
+    await saveChats(chats)
+  }
+
+  return chats
+}
+
+async function saveChats(chats: Chat[]): Promise<void> {
+  await storage.setItem(chatsKey, chats)
+}
 
 export async function getAllChats(): Promise<Chat[]> {
-  return chats
-    .map((chat) => {
-      const lastMessage = getLastMessageForChat(chat.id)
+  const chats = await getChats()
+
+  let transformedChats = await Promise.all(
+    chats.map(async (chat) => {
+      const lastMessage = await getLastMessageForChat(
+        chat.id
+      )
       return {
         ...chat,
         messages: lastMessage ? [lastMessage] : [],
         project: chat.projectId
-          ? getProjectById(chat.projectId) || undefined
+          ? (await getProjectById(chat.projectId)) ||
+            undefined
           : undefined,
       }
     })
-    .sort(
-      (a, b) =>
-        b.updatedAt.getTime() - a.updatedAt.getTime()
-    )
+  )
+
+  transformedChats = transformedChats.sort(
+    (a, b) =>
+      new Date(b.updatedAt).getTime() -
+      new Date(a.updatedAt).getTime()
+  )
+
+  return transformedChats
 }
 
 export async function createChat(data: {
@@ -34,28 +61,33 @@ export async function createChat(data: {
     createdAt: now,
     updatedAt: now,
   }
+
+  const chats = await getChats()
   chats.push(newChat)
-  // No messages yet, so lastMessage is always []
+  await saveChats(chats)
+
+  const project = data.projectId
+    ? await getProjectById(data.projectId)
+    : null
+
   return {
     ...newChat,
-    messages: [],
-    project: data.projectId
-      ? getProjectById(data.projectId) || null
-      : null,
+    project,
   }
 }
 
 export async function getChatById(
   id: string
 ): Promise<(Chat & { project: Project | null }) | null> {
+  const chats = await getChats()
   const chat = chats.find((c) => c.id === id)
   if (!chat) return null
-  const lastMessage = getLastMessageForChat(id)
+  const lastMessage = await getLastMessageForChat(id)
   return {
     ...chat,
     messages: lastMessage ? [lastMessage] : [],
     project: chat.projectId
-      ? getProjectById(chat.projectId) || null
+      ? await getProjectById(chat.projectId)
       : null,
   }
 }
@@ -64,10 +96,14 @@ export async function updateChat(
   id: string,
   data: { title?: string; projectId?: string }
 ): Promise<ChatWithProject | null> {
+  const chats = await getChats()
+
   const chatIndex = chats.findIndex((c) => c.id === id)
   if (chatIndex === -1) return null
+
   const chat = chats[chatIndex]
   if (!chat) return null
+
   const updatedChat: Chat = {
     ...chat,
     ...(data.title && { title: data.title }),
@@ -76,13 +112,19 @@ export async function updateChat(
     }),
     updatedAt: new Date(),
   }
+
+  // Save updated chat
   chats[chatIndex] = updatedChat
-  const lastMessage = getLastMessageForChat(id)
+  await saveChats(chats)
+
+  const lastMessage = await getLastMessageForChat(id)
+
+  // Return updated chat with last message and project
   return {
     ...updatedChat,
     messages: lastMessage ? [lastMessage] : [],
     project: updatedChat.projectId
-      ? getProjectById(updatedChat.projectId) || null
+      ? await getProjectById(updatedChat.projectId)
       : null,
   }
 }
@@ -90,22 +132,28 @@ export async function updateChat(
 export async function deleteChat(
   id: string
 ): Promise<boolean> {
+  const chats = await getChats()
   const index = chats.findIndex((chat) => chat.id === id)
   if (index !== -1) {
     chats.splice(index, 1)
-    deleteMessagesForChat(id)
+    await saveChats(chats)
     return true
   }
   return false
 }
 
-export function getMessagesByChatId(
+export async function getMessagesByChatId(
   chatId: string
-): ChatMessage[] {
+): Promise<ChatMessage[]> {
+  const chats = await getChats()
+
   const chat = chats.find((c) => c.id === chatId)
   if (!chat) return []
+
   return [...chat.messages].sort(
-    (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+    (a, b) =>
+      new Date(a.createdAt).getTime() -
+      new Date(b.createdAt).getTime()
   )
 }
 
@@ -114,8 +162,16 @@ export async function createMessageForChat(data: {
   role: 'user' | 'assistant'
   chatId: string
 }): Promise<ChatMessage | null> {
-  const chat = chats.find((c) => c.id === data.chatId)
+  const chats = await getChats()
+
+  const chatIndex = chats.findIndex(
+    (c) => c.id === data.chatId
+  )
+  if (chatIndex === -1) return null
+
+  const chat = chats[chatIndex]
   if (!chat) return null
+
   const now = new Date()
   const newMessage: ChatMessage = {
     id: uuidv4(),
@@ -124,27 +180,48 @@ export async function createMessageForChat(data: {
     createdAt: now,
     updatedAt: now,
   }
+
   chat.messages.push(newMessage)
   chat.updatedAt = now
+
+  chats[chatIndex] = chat
+  await saveChats(chats)
+
   return newMessage
 }
 
-export function deleteMessagesForChat(
+export async function deleteMessagesForChat(
   chatId: string
-): void {
-  const chat = chats.find((c) => c.id === chatId)
-  if (chat) {
-    chat.messages = []
-    chat.updatedAt = new Date()
-  }
+): Promise<void> {
+  const chats = await getChats()
+  const chatIndex = chats.findIndex((c) => c.id === chatId)
+  if (chatIndex === -1) return
+
+  const chat = chats[chatIndex]
+  if (!chat) return
+
+  chat.messages = []
+  chat.updatedAt = new Date()
+
+  chats[chatIndex] = chat
+  await saveChats(chats)
 }
 
-export function getLastMessageForChat(
+export async function getLastMessageForChat(
   chatId: string
-): ChatMessage | null {
+): Promise<ChatMessage | null> {
+  const chats = await getChats()
+
   const chat = chats.find((c) => c.id === chatId)
   if (!chat || chat.messages.length === 0) return null
-  return chat.messages.reduce((latest, msg) =>
+
+  const lastMessage = chat.messages.reduce((latest, msg) =>
     msg.createdAt > latest.createdAt ? msg : latest
   )
+
+  return {
+    ...lastMessage,
+    createdAt: new Date(lastMessage.createdAt),
+    updatedAt: new Date(lastMessage.updatedAt),
+  }
 }
