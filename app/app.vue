@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { fetchChats } = useChats()
+const { fetchChats, prefetchChatMessages } = useChats()
 const { fetchProjects } = useProjects()
 await Promise.all([fetchChats(), fetchProjects()])
+await callOnce(prefetchChatMessages)
 </script>
 
 <template>
