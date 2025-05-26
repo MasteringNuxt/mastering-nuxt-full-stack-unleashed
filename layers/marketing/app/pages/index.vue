@@ -34,11 +34,11 @@ async function handleCreateChat() {
         </UButton>
       </div>
       <div class="hero-image">
-        <img
+        <NuxtImg
           src="/hero.png"
           alt="Chat Interface Preview"
           class="hero-img"
-        >
+        />
       </div>
     </UContainer>
 
@@ -50,11 +50,13 @@ async function handleCreateChat() {
         </h2>
         <div class="features-grid">
           <div class="feature-card">
-            <img
+            <NuxtImg
               src="/ai-conversations.png"
               alt="AI Powered"
               class="feature-image"
-            >
+              width="200"
+              densities="x1"
+            />
             <h3 class="feature-title">
               AI-Powered Conversations
             </h3>
@@ -66,11 +68,11 @@ async function handleCreateChat() {
           </div>
 
           <div class="feature-card">
-            <img
+            <NuxtImg
               src="/realtime.png"
               alt="Real Time"
               class="feature-image"
-            >
+            />
             <h3 class="feature-title">
               Real-Time Messaging
             </h3>
@@ -81,11 +83,11 @@ async function handleCreateChat() {
           </div>
 
           <div class="feature-card">
-            <img
+            <NuxtImg
               src="/secure.png"
               alt="Secure"
               class="feature-image"
-            >
+            />
             <h3 class="feature-title">Secure & Private</h3>
             <p class="feature-description">
               Your conversations are protected with
@@ -136,11 +138,11 @@ async function handleCreateChat() {
           </div>
         </div>
         <div class="benefits-image">
-          <img
+          <NuxtImg
             src="/people.png"
             alt="Communication Benefits"
             class="benefits-img"
-          >
+          />
         </div>
       </div>
     </UContainer>
