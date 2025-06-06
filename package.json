@@ -12,6 +12,9 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
   },
+  "prisma": {
+    "seed": "pnpm dlx tsx prisma/seed.ts"
+  },
   "dependencies": {
     "nuxt": "^4.0.1",
     "@ai-sdk/openai": "1.2.0",
@@ -30,7 +33,8 @@
   },
   "devDependencies": {
     "@nuxtjs/mdc": "^0.16.1",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "tsx": "^4.19.4"
   },
   "packageManager": "pnpm@10.13.1"
 }
