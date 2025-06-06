@@ -144,7 +144,7 @@ export async function deleteChat(
 
 export async function getMessagesByChatId(
   chatId: string
-): Promise<ChatMessage[]> {
+): Promise<Message[]> {
   const chats = await getChats()
 
   const chat = chats.find((c) => c.id === chatId)
@@ -161,7 +161,7 @@ export async function createMessageForChat(data: {
   content: string
   role: 'user' | 'assistant'
   chatId: string
-}): Promise<ChatMessage | null> {
+}): Promise<Message | null> {
   const chats = await getChats()
 
   const chatIndex = chats.findIndex(
@@ -173,7 +173,7 @@ export async function createMessageForChat(data: {
   if (!chat) return null
 
   const now = new Date()
-  const newMessage: ChatMessage = {
+  const newMessage: Message = {
     id: uuidv4(),
     content: data.content,
     role: data.role,
@@ -209,7 +209,7 @@ export async function deleteMessagesForChat(
 
 export async function getLastMessageForChat(
   chatId: string
-): Promise<ChatMessage | null> {
+): Promise<Message | null> {
   const chats = await getChats()
 
   const chat = chats.find((c) => c.id === chatId)

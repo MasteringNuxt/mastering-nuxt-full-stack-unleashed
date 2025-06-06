@@ -4,11 +4,11 @@ export default function useChat(chatId: string) {
     chats.value.find((c) => c.id === chatId)
   )
 
-  const messages = computed<ChatMessage[]>(
+  const messages = computed<Message[]>(
     () => chat.value?.messages || []
   )
 
-  const { data, execute, status } = useFetch<ChatMessage[]>(
+  const { data, execute, status } = useFetch<Message[]>(
     `/api/chats/${chatId}/messages`,
     {
       default: () => [],
@@ -57,7 +57,7 @@ export default function useChat(chatId: string) {
       generateChatTitle(message)
     }
 
-    const optimisticUserMessage: ChatMessage = {
+    const optimisticUserMessage: Message = {
       id: `optimistic-user-message-${Date.now()}`,
       role: 'user',
       content: message,
@@ -69,7 +69,7 @@ export default function useChat(chatId: string) {
     const userMessageIndex = messages.value.length - 1
 
     try {
-      const newMessage = await $fetch<ChatMessage>(
+      const newMessage = await $fetch<Message>(
         `/api/chats/${chatId}/messages`,
         {
           method: 'POST',
@@ -95,7 +95,7 @@ export default function useChat(chatId: string) {
     })
     const lastMessage = messages.value[
       messages.value.length - 1
-    ] as ChatMessage
+    ] as Message
 
     try {
       const response = await $fetch<ReadableStream>(
