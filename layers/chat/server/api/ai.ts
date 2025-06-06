@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { messages } = data as {
-    messages: ChatMessage[]
+    messages: Message[]
     chatId: string
   }
 
