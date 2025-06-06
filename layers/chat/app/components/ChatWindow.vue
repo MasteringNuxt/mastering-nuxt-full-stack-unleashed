@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type {
-  ChatMessage,
+  Message,
   Chat,
 } from '../../shared/types/types'
 
 const props = defineProps<{
-  messages: ChatMessage[]
+  messages: Message[]
   chat: Chat
   typing: boolean
 }>()
