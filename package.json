@@ -17,16 +17,18 @@
     "@nuxt/eslint": "1.2.0",
     "@nuxt/image": "1.10.0",
     "@nuxt/ui": "3.0.0",
+    "@prisma/client": "6.9.0",
     "ai": "4.1.51",
     "eslint": "^9.0.0",
     "nuxt": "^3.17.2",
     "ollama-ai-provider": "1.2.0",
+    "prisma": "6.9.0",
     "uuid": "^11.1.0",
     "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.24.4"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.11.1",
   "devDependencies": {
     "@nuxtjs/mdc": "^0.16.1",
     "husky": "^9.1.7"
