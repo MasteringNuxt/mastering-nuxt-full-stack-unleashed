@@ -142,7 +142,7 @@ export default function useChat(chatId: string) {
     const originalProjectId = chat.value.projectId
 
     // Optimistically update the chat
-    chat.value.projectId = projectId || undefined
+    chat.value.projectId = projectId || null
 
     try {
       const updatedChat = await $fetch<Chat>(
