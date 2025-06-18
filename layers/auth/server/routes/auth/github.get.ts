@@ -30,6 +30,28 @@ export default defineOAuthGitHubEventHandler({
   config: {
     emailRequired: true,
   },
+  async onSuccess(event, { user }) {
+    if (!user.email) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Email is required',
+      })
+    }
+
+    await setUserSession(event, {
+      user: {
+        id: user.id,
+        name: user.name || user.login,
+        email: user.email,
+        avatar: user.avatar_url,
+        login: user.login,
+      },
+      loggedInAt: new Date(),
+    })
+
+    const redirectUrl = await getRedirectUrl()
+    return sendRedirect(event, redirectUrl)
+  },
   onError(event, error) {
     console.error('GitHub OAuth error:', error)
     return sendRedirect(event, '/')
