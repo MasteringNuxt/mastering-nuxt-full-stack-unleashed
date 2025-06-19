@@ -7,7 +7,11 @@ export const useAuth = () => {
     await navigateTo('/login')
   }
 
-  const isAuthenticated = computed(() => loggedIn.value)
+  const isAuthenticated = computed(
+    () =>
+      loggedIn.value &&
+      session.value?.databaseUserId !== undefined
+  )
 
   const userName = computed(
     () =>
