@@ -12,9 +12,6 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
   },
-  "prisma": {
-    "seed": "pnpm dlx tsx prisma/seed.ts"
-  },
   "dependencies": {
     "@ai-sdk/openai": "1.2.0",
     "@nuxt/eslint": "1.2.0",
