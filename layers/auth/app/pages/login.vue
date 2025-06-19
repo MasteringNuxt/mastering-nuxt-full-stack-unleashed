@@ -7,6 +7,17 @@ const appConfig = useAppConfig()
 useHead({
   title: `Login - ${appConfig.title}`,
 })
+
+const { isAuthenticated } = useAuth()
+if (isAuthenticated.value) {
+  await navigateTo('/', { replace: true })
+}
+
+const isLoading = ref(false)
+async function handleGitHubLogin() {
+  isLoading.value = true
+  await navigateTo('/auth/github', { external: true })
+}
 </script>
 
 <template>
