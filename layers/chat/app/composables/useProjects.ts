@@ -6,18 +6,20 @@ export default function useProjects() {
     {
       default: () => [],
       immediate: false,
+      headers: useRequestHeaders(['cookie']),
     }
   )
 
   async function fetchProjects() {
     if (status.value !== 'idle') return
     await execute()
-    projects.value = data.value
+    projects.value = data.value || []
   }
 
   async function createProject() {
     const project = await $fetch<Project>('/api/projects', {
       method: 'POST',
+      headers: useRequestHeaders(['cookie']),
       body: {
         name: 'New Project',
       },

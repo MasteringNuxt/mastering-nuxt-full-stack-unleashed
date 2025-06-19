@@ -28,6 +28,7 @@ export default function useProject(projectId: string) {
         `/api/projects/${projectId}`,
         {
           method: 'PUT',
+          headers: useRequestHeaders(['cookie']),
           body: {
             ...updatedProject,
           },
