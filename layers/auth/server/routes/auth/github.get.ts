@@ -1,11 +1,14 @@
 import {
-  getAllChats,
+  getAllChatsByUser,
   createChat,
 } from '#layers/chat/server/repository/chatRepository'
+import { findOrCreateUser } from '../../repository/userRepository'
 
-async function getRedirectUrl(): Promise<string> {
+async function getRedirectUrl(
+  userId: string
+): Promise<string> {
   try {
-    const chats = await getAllChats()
+    const chats = await getAllChatsByUser(userId)
 
     if (chats.length > 0) {
       const mostRecentChat = chats[0]!
@@ -17,6 +20,7 @@ async function getRedirectUrl(): Promise<string> {
     // No chats found, create a new empty chat
     const newChat = await createChat({
       title: 'New Chat',
+      userId,
     })
     return `/chats/${newChat.id}`
   } catch (error) {
@@ -38,6 +42,16 @@ export default defineOAuthGitHubEventHandler({
       })
     }
 
+    const githubUser: GitHubUser = {
+      id: user.id,
+      login: user.login,
+      name: user.name ?? null,
+      email: user.email,
+      avatar: user.avatar_url,
+    }
+
+    const dbUser = await findOrCreateUser(githubUser)
+
     await setUserSession(event, {
       user: {
         id: user.id,
@@ -46,10 +60,11 @@ export default defineOAuthGitHubEventHandler({
         avatar: user.avatar_url,
         login: user.login,
       },
+      databaseUserId: dbUser.id,
       loggedInAt: new Date(),
     })
 
-    const redirectUrl = await getRedirectUrl()
+    const redirectUrl = await getRedirectUrl(dbUser.id)
     return sendRedirect(event, redirectUrl)
   },
   onError(event, error) {
