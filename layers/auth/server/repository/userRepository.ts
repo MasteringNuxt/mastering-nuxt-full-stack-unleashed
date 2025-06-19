@@ -1,3 +1,5 @@
+import { seedDemoDataForUser } from './seedRepository'
+
 export async function findUserByProviderId(
   providerId: string
 ) {
@@ -30,6 +32,15 @@ export async function findOrCreateUser(
   if (!user) {
     // Create new user if not found
     user = await createUserFromGitHub(githubUser)
+
+    try {
+      await seedDemoDataForUser(user.id)
+    } catch (error) {
+      console.error(
+        'Could not seed demo data for user:',
+        error
+      )
+    }
   }
 
   return user
