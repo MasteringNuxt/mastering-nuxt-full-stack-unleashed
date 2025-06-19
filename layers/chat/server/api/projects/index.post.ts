@@ -1,7 +1,10 @@
 import { createProject } from '../../repository/projectRepository'
 import { CreateProjectSchema } from '../../schemas'
+import { getAuthenticatedUserId } from '#layers/auth/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
+  const userId = await getAuthenticatedUserId(event)
+
   const { success, data } = await readValidatedBody(
     event,
     CreateProjectSchema.safeParse
@@ -14,5 +17,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return createProject(data)
+  return createProject({
+    ...data,
+    userId,
+  })
 })
