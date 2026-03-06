@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
+<<<<<<< HEAD
   },
   "prisma": {
     "seed": "pnpm dlx tsx prisma/seed.ts"
@@ -28,6 +29,14 @@
     "ollama-ai-provider": "1.2.0",
     "prisma": "6.9.0",
     "uuid": "^11.1.0",
+=======
+  },
+  "dependencies": {
+    "nuxt": "^4.0.1",
+    "@nuxt/ui": "3.0.0",
+    "@nuxt/eslint": "1.2.0",
+    "eslint": "^9.0.0",
+>>>>>>> origin/3-1-start
     "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.24.4"
@@ -36,6 +45,9 @@
     "@nuxtjs/mdc": "^0.16.1",
     "husky": "^9.1.7",
     "tsx": "^4.19.4"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   },
   "packageManager": "pnpm@10.13.1"
 }
