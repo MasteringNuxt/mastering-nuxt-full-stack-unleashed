@@ -51,12 +51,15 @@ defineProps<{ content: string }>()
 
 .markdown-content pre {
   font-size: 0.875rem;
-  background-color: var(--ui-bg-inverted);
-  color: var(--color-white);
   padding: 1rem;
   border-radius: var(--ui-radius);
   overflow-x: auto;
   margin: 1.5rem 0;
+  background-color: #eff1f5 !important;
+}
+
+html.dark .markdown-content pre {
+  background-color: #1e1e2e !important;
 }
 
 .markdown-content code {
@@ -69,7 +72,6 @@ defineProps<{ content: string }>()
 
 .markdown-content pre code {
   background-color: transparent;
-  color: var(--color-white);
   padding: 0;
 }
 

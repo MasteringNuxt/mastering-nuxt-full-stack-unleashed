@@ -1,5 +1,5 @@
 import {
-  createOpenAIModel,
+  createAnthropicModel,
   generateChatResponse,
 } from '../services/ai-service'
 
@@ -9,11 +9,11 @@ export default defineEventHandler(async (event) => {
 
   const id = messages.length.toString()
 
-  const openaiApiKey = useRuntimeConfig().openaiApiKey
-  const openaiModel = createOpenAIModel(openaiApiKey)
+  const anthropicApiKey = useRuntimeConfig().anthropicApiKey
+  const anthropicModel = createAnthropicModel(anthropicApiKey)
 
   const response = await generateChatResponse(
-    openaiModel,
+    anthropicModel,
     messages
   )
 

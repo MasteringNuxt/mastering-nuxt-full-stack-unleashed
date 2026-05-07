@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "1.1.14",
     "@ai-sdk/openai": "1.2.0",
     "@nuxt/eslint": "1.2.0",
     "@nuxt/ui": "3.0.0",
